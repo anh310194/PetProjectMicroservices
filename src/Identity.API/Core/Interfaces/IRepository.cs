@@ -1,17 +1,18 @@
 using Identity.API.Core.Entities.BaseEntity;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
 namespace Identity.API.Core.Interfaces;
 public interface IRepository<TEntity> where TEntity : BaseEntity
 {
-    TEntity Insert(TEntity entity, long userId);
-    void InsertRange(ICollection<TEntity> entities, long userId);
-    ValueTask<TEntity> InsertAsync(TEntity entity, long userId);
-    ValueTask<TEntity> InsertAsync(TEntity entity, long userId, CancellationToken cancellationToken);
-    Task InsertRangeAsync(ICollection<TEntity> entities, long userId);
-    Task InsertRangeAsync(ICollection<TEntity> entities, long userId, CancellationToken cancellationToken);
-    TEntity Update(TEntity entity, long userId);
-    void UpdateRange(ICollection<TEntity> entities, long userId);
+    TEntity Insert(TEntity entity, int userId);
+    void InsertRange(ICollection<TEntity> entities, int userId);
+    ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, int userId);
+    ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, int userId, CancellationToken cancellationToken);
+    Task InsertRangeAsync(ICollection<TEntity> entities, int userId);
+    Task InsertRangeAsync(ICollection<TEntity> entities, int userId, CancellationToken cancellationToken);
+    TEntity Update(TEntity entity, int userId);
+    void UpdateRange(ICollection<TEntity> entities, int userId);
     void Delete(object id);
     void Delete(TEntity entity);
     void DeleteRange(ICollection<TEntity> entities);

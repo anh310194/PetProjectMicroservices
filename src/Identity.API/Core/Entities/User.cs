@@ -11,4 +11,6 @@ public class User : BaseEntity
     public string? SaltPassword { get; set; }
     public string? Address { get; set; }
     public byte Status { get; set; }
+    public int? CountryId { get; set; }
+    public int? StateId { get; set; }
 }
