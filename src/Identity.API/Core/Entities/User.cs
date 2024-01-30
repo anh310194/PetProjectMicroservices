@@ -1,4 +1,5 @@
 
+using Identity.API.Core;
 using Identity.API.Core.Entities.BaseEntity;
 
 public class User : BaseEntity
@@ -10,7 +11,7 @@ public class User : BaseEntity
     public string? Password { get; set; }
     public string? SaltPassword { get; set; }
     public string? Address { get; set; }
-    public byte Status { get; set; }
+    public EnumStatus Status { get; set; }
     public int? CountryId { get; set; }
     public int? StateId { get; set; }
 }
