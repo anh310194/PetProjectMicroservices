@@ -49,7 +49,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     private void SetBaseValueInsert(TEntity entity, int userId)
     {
         entity.CreatedBy = userId;
-        entity.CreatedTime = DateTime.UtcNow;
     }
 
     public TEntity Insert(TEntity entity, int userId)
@@ -128,7 +127,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     private void SetBaseValueUpdate(TEntity entity, int userId)
     {
         entity.UpdatedBy = userId;
-        entity.UpdatedTime = DateTime.UtcNow;
     }
 
     public TEntity Update(TEntity entity, int userId)
