@@ -1,4 +1,3 @@
-
 using Identity.Core.Entities.BaseEntity;
 
 public class Country : BaseEntity

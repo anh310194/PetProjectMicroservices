@@ -1,4 +1,3 @@
-
 using Identity.Core;
 using Identity.Core.Entities.BaseEntity;
 

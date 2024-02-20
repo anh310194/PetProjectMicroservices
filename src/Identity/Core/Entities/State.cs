@@ -1,4 +1,3 @@
-
 using Identity.Core;
 using Identity.Core.Entities.BaseEntity;
 
@@ -8,6 +7,5 @@ public class State : BaseEntity
     public required string Name { get; set; }
     public string? Description { get; set; }
     public EnumStatus Status { get; set; }
-
     public Country? Country { get; set; }
 }
