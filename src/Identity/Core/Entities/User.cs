@@ -14,6 +14,6 @@ public class User : BaseEntity
     public int? CountryId { get; set; }
     public int? StateId { get; set; }
 
-    public Country? Country { get; set; }
-    public State? State { get; set; }
+    // public Country? Country { get; set; }
+    // public State? State { get; set; }
 }

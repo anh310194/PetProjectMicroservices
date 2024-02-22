@@ -7,8 +7,9 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// builder.Services.AddDbContext<IdentityContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SQLConnection")));
-// builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+var connectionString = builder.Configuration.GetConnectionString("SQLConnection") ?? "";
+builder.Services.AddDbContext<IdentityContext>(opt => opt.UseMySQL(connectionString));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddControllers();
 builder.Services.AddApiVersioning(x =>
     {

@@ -1,4 +1,6 @@
+using Identity.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Controllers.v1;
 
@@ -7,9 +9,14 @@ namespace Identity.Controllers.v1;
 [ApiVersion("1.0")]
 public class CountriesController : ControllerBase
 {
-    [HttpGet]
-    public ActionResult<string> GetAll()
+    private readonly IUnitOfWork _UnitOfWork;
+    public CountriesController(IUnitOfWork unitOfWork)
     {
-        return "Get All Countries v1";
+        this._UnitOfWork = unitOfWork;
+    }
+    [HttpGet]
+    public async Task<ActionResult<List<Country>>> GetAll()
+    {
+        return await _UnitOfWork.CountryRepository.Queryable().ToListAsync();
     }
 }
