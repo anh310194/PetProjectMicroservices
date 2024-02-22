@@ -1,0 +1,19 @@
+services:
+  IdentityDb:
+    container_name: IdentityDb
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3306:3306'
+  # IdentityService:
+  #   container_name: IdentityApi
+  #   image: identity
+  #   build:
+  #     context: .
+  #     dockerfile: ./Identity/Dockerfile
+  #   ports:
+  #     - '9000:9000'
+  #   depends_on:
+  #     - IdentityDb

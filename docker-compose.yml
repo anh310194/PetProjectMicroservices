@@ -1,9 +1,0 @@
-services:
-  db:
-    container_name: PetProjectDb
-    image: mysql:latest
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-    ports:
-      - '3306:3306'
