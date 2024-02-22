@@ -13,7 +13,7 @@ public class UnitOfWork(IdentityContext context) : IUnitOfWork
     private Repository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity
     {
         string name = typeof(TEntity).Name;
-        var repository = repositories[name];
+        var repository = repositories.GetValueOrDefault(name);
         if (repository == null)
         {
             repository = new Repository<TEntity>(context);
