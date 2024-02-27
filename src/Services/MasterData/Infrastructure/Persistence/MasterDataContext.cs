@@ -17,11 +17,10 @@ public partial class MasterDataContext : DbContext
             entity.Property(e => e.Name).IsRequired().IsUnicode().HasMaxLength(100);
             entity.Property(e => e.Status).HasConversion<byte>();
 
+            entity.Property(e => e.CreatedBy).ValueGeneratedOnAdd();
             entity.Property(e => e.CreatedTime).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP"); ;
-            entity.Property(e => e.UpdatedTime).ValueGeneratedOnUpdate().HasColumnType("TIMESTAMP"); 
-            entity.Property(e => e.RowVersion)
-            .HasColumnType("TIMESTAMP")
-            .ValueGeneratedOnAddOrUpdate();
+            entity.Property(e => e.UpdatedBy).ValueGeneratedOnAdd();
+            entity.Property(e => e.UpdatedTime).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP");
         });
 
         modelBuilder.Entity<State>(entity =>
@@ -32,11 +31,10 @@ public partial class MasterDataContext : DbContext
             entity.Property(e => e.Code).HasMaxLength(10);
             entity.Property(e => e.Status).HasConversion<byte>();
 
+            entity.Property(e => e.CreatedBy).ValueGeneratedOnAdd();
             entity.Property(e => e.CreatedTime).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP"); ;
-            entity.Property(e => e.UpdatedTime).ValueGeneratedOnUpdate().HasColumnType("TIMESTAMP");
-            entity.Property(e => e.RowVersion)
-            .HasColumnType("TIMESTAMP")
-            .ValueGeneratedOnAddOrUpdate();
+            entity.Property(e => e.UpdatedBy).ValueGeneratedOnAdd();
+            entity.Property(e => e.UpdatedTime).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP");
         });
 
         OnModelCreatingPartial(modelBuilder);
