@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Core.Entities.BaseEntity;
 using Core.Interfaces;
-using Identity.Infrastructures;
+using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -10,7 +10,7 @@ namespace Infrastructure.Repositories;
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
     private readonly DbSet<TEntity> _dbSet;
-    public Repository(IdentityContext context)
+    public Repository(MasterDataContext context)
     {
         _dbSet = context.Set<TEntity>();
     }

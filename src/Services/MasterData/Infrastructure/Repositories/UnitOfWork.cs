@@ -1,14 +1,13 @@
-
 using Core.Entities.BaseEntity;
 using Core.Interfaces;
-using Infrastructure.Repositories;
+using Infrastructure.Persistence;
 
-namespace Identity.Infrastructures;
+namespace Infrastructure.Repositories;
 
-public class UnitOfWork(IdentityContext context) : IUnitOfWork
+public class UnitOfWork(MasterDataContext context) : IUnitOfWork
 {
     private Dictionary<string, dynamic> repositories = new Dictionary<string, dynamic>();
-    private IdentityContext context = context;
+    private MasterDataContext context = context;
     private bool disposed = false;
 
     private Repository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity
@@ -17,9 +16,7 @@ public class UnitOfWork(IdentityContext context) : IUnitOfWork
         var repository = repositories.GetValueOrDefault(name);
         if (repository == null)
         {
-#pragma warning disable CS0436 // Type conflicts with imported type
             repository = new Repository<TEntity>(context);
-#pragma warning restore CS0436 // Type conflicts with imported type
             repositories.Add(name, repository);
         }
         return repository;
@@ -33,22 +30,6 @@ public class UnitOfWork(IdentityContext context) : IUnitOfWork
         }
     }
 
-    public IRepository<Feature> FeatureRepository
-    {
-        get
-        {
-            return GetRepository<Feature>();
-        }
-    }
-
-    public IRepository<Role> RoleRepository
-    {
-        get
-        {
-            return GetRepository<Role>();
-        }
-    }
-
     public IRepository<State> StateRepository
     {
         get
@@ -57,13 +38,6 @@ public class UnitOfWork(IdentityContext context) : IUnitOfWork
         }
     }
 
-    public IRepository<User> UserRepository
-    {
-        get
-        {
-            return GetRepository<User>();
-        }
-    }
     public int SaveChanges()
     {
         return context.SaveChanges();
@@ -76,14 +50,14 @@ public class UnitOfWork(IdentityContext context) : IUnitOfWork
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!this.disposed)
+        if (!disposed)
         {
             if (disposing)
             {
                 context.Dispose();
             }
         }
-        this.disposed = true;
+        disposed = true;
     }
 
     public void Dispose()
