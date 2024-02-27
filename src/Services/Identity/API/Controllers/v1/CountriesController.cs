@@ -1,4 +1,4 @@
-using Identity.Core.Interfaces;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

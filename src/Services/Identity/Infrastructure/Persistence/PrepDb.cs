@@ -1,4 +1,6 @@
 using Core.Interfaces;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Identity.Infrastructures;
 

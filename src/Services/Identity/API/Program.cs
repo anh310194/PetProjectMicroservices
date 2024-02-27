@@ -1,5 +1,6 @@
-using Identity.Core.Interfaces;
-using Identity.Infrastructures;
+using Core.Interfaces;
+using Infrastructure.Persistence;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;

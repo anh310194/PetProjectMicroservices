@@ -1,8 +1,8 @@
-using Identity.Core.Entities.BaseEntity;
+using Core.Entities.BaseEntity;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
-namespace Identity.Core.Interfaces;
+namespace Core.Interfaces;
 public interface IRepository<TEntity> where TEntity : BaseEntity
 {
     TEntity Insert(TEntity entity, int userId);

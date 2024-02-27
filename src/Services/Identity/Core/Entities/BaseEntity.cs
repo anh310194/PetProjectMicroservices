@@ -1,4 +1,4 @@
-namespace Identity.Core.Entities.BaseEntity;
+namespace Core.Entities.BaseEntity;
 
 public abstract class BaseEntity
 {

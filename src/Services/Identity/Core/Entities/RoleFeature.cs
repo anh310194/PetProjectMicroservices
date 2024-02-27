@@ -1,4 +1,4 @@
-using Identity.Core.Entities.BaseEntity;
+using Core.Entities.BaseEntity;
 
 public class RoleFeature : BaseEntity
 {

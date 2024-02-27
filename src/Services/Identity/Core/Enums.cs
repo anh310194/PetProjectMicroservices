@@ -1,4 +1,4 @@
-namespace Identity.Core;
+namespace Core;
 
 public enum EnumStatus
 {

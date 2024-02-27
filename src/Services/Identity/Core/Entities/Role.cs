@@ -1,5 +1,5 @@
-using Identity.Core;
-using Identity.Core.Entities.BaseEntity;
+using Core;
+using Core.Entities.BaseEntity;
 
 public class Role : BaseEntity
 {
