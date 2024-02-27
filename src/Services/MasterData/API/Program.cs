@@ -1,11 +1,18 @@
+using Core.Interfaces;
+using Infrastructure.Persistence;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var connectionString = builder.Configuration.GetConnectionString("SQLConnection") ?? "";
 builder.Services.AddControllers();
+builder.Services.AddDbContext<MasterDataContext>(opt => opt.UseMySQL(connectionString));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddApiVersioning(x =>
 {
     x.DefaultApiVersion = new ApiVersion(1, 0);

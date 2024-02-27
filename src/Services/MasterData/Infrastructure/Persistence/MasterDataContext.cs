@@ -15,13 +15,13 @@ public partial class MasterDataContext : DbContext
             entity.HasKey(k => k.Id);
             entity.Property(e => e.Code).IsRequired().HasMaxLength(10);
             entity.Property(e => e.Name).IsRequired().IsUnicode().HasMaxLength(100);
+            entity.Property(e => e.Status).HasConversion<byte>();
 
-            entity.Property(e => e.CreatedTime).ValueGeneratedOnAdd();
-            entity.Property(e => e.UpdatedTime).ValueGeneratedOnUpdate();
+            entity.Property(e => e.CreatedTime).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP"); ;
+            entity.Property(e => e.UpdatedTime).ValueGeneratedOnUpdate().HasColumnType("TIMESTAMP"); 
             entity.Property(e => e.RowVersion)
-                .IsRequired()
-                .IsRowVersion()
-                .IsConcurrencyToken();
+            .HasColumnType("TIMESTAMP")
+            .ValueGeneratedOnAddOrUpdate();
         });
 
         modelBuilder.Entity<State>(entity =>
@@ -32,12 +32,11 @@ public partial class MasterDataContext : DbContext
             entity.Property(e => e.Code).HasMaxLength(10);
             entity.Property(e => e.Status).HasConversion<byte>();
 
-            entity.Property(e => e.CreatedTime).ValueGeneratedOnAdd();
-            entity.Property(e => e.UpdatedTime).ValueGeneratedOnUpdate();
+            entity.Property(e => e.CreatedTime).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP"); ;
+            entity.Property(e => e.UpdatedTime).ValueGeneratedOnUpdate().HasColumnType("TIMESTAMP");
             entity.Property(e => e.RowVersion)
-                .IsRequired()
-                .IsRowVersion()
-                .IsConcurrencyToken();
+            .HasColumnType("TIMESTAMP")
+            .ValueGeneratedOnAddOrUpdate();
         });
 
         OnModelCreatingPartial(modelBuilder);

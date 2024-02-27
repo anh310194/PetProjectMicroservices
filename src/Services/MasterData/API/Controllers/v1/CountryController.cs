@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.Interfaces;
+using MasterData.DTOs;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MasterData.Controllers.v1
 {
@@ -7,10 +10,20 @@ namespace MasterData.Controllers.v1
     [ApiVersion("1.0")]
     public class CountryController : Controller
     {
-        [HttpGet]
-        public ActionResult<string> Index()
+        private IUnitOfWork _unitOfWork;
+        public CountryController(IUnitOfWork unitOfWork)
         {
-            return "country v1";
+            this._unitOfWork = unitOfWork;
+        }
+        [HttpGet]
+        public async Task<ActionResult<List<CountryResponseDTO>>> GetAll()
+        {
+            var countries = await _unitOfWork.CountryRepository.Queryable().ToListAsync();
+
+            return countries.Select((country) =>
+            {
+                return new CountryResponseDTO() { Code = country.Code, Name = country.Name, Id = country.Id, Status = country.Status };
+            }).ToList();
         }
     }
 }

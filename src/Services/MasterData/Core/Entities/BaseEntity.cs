@@ -7,5 +7,5 @@ public abstract class BaseEntity
     public int CreatedBy { get; set; }
     public DateTime? UpdatedTime { get; set; }
     public int? UpdatedBy { get; set; }
-    public ulong RowVersion { get; set; }
+    public DateTime RowVersion { get; set; }
 }
