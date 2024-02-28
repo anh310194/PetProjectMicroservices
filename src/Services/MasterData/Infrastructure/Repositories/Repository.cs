@@ -51,6 +51,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     {
         entity.CreatedBy = userId;
         entity.CreatedTime = DateTime.UtcNow;
+        entity.RowVersion = Guid.NewGuid().ToByteArray();
     }
 
     public TEntity Insert(TEntity entity, int userId)
