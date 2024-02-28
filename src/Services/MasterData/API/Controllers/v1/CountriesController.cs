@@ -2,6 +2,7 @@
 using MasterData.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace MasterData.Controllers.v1
 {
@@ -42,7 +43,7 @@ namespace MasterData.Controllers.v1
         [HttpPost()]
         public async Task<ActionResult<CountryResponseDTO>> Add(CountryDTO country)
         {
-            var resultEntry = await _unitOfWork.CountryRepository.InsertAsync(new Country() { Code = country.Code, Status = country.Status, Name = country.Name}, 1);
+            var resultEntry = await _unitOfWork.CountryRepository.InsertAsync(new Country() { Code = country.Code, Status = country.Status, Name = country.Name, RowVersion = Guid.NewGuid().ToByteArray()}, 1);
             await _unitOfWork.SaveChangesAsync();
             if (resultEntry == null)
             {

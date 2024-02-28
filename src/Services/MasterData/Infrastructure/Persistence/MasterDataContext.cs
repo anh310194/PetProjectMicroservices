@@ -17,10 +17,14 @@ public partial class MasterDataContext : DbContext
             entity.Property(e => e.Name).IsRequired().IsUnicode().HasMaxLength(100);
             entity.Property(e => e.Status).HasConversion<byte>();
 
-            entity.Property(e => e.CreatedBy).ValueGeneratedOnAdd();
-            entity.Property(e => e.CreatedTime).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP"); ;
-            entity.Property(e => e.UpdatedBy).ValueGeneratedOnAdd();
-            entity.Property(e => e.UpdatedTime).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP");
+            entity.Property(e => e.CreatedBy);
+            entity.Property(e => e.CreatedTime);
+            entity.Property(e => e.UpdatedBy);
+            entity.Property(e => e.UpdatedTime);
+            entity.Property(e => e.RowVersion)
+            //.IsRowVersion()
+            .IsRequired()
+            ; // Configure as row version column
         });
 
         modelBuilder.Entity<State>(entity =>
@@ -33,8 +37,11 @@ public partial class MasterDataContext : DbContext
 
             entity.Property(e => e.CreatedBy).ValueGeneratedOnAdd();
             entity.Property(e => e.CreatedTime).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP"); ;
-            entity.Property(e => e.UpdatedBy).ValueGeneratedOnAdd();
-            entity.Property(e => e.UpdatedTime).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP");
+            entity.Property(e => e.UpdatedBy).ValueGeneratedOnUpdate();
+            entity.Property(e => e.UpdatedTime).ValueGeneratedOnUpdate().HasColumnType("TIMESTAMP");
+            entity.Property(e => e.RowVersion)
+                .HasColumnType("binary(16)") // Map to BINARY(16) in MySQL
+                .IsRowVersion(); // Configure as row version column
         });
 
         OnModelCreatingPartial(modelBuilder);
