@@ -12,7 +12,8 @@ public partial class MasterDataContext : DbContext
     {
         modelBuilder.Entity<Country>(entity =>
         {
-            entity.Property(k => k.Id).ValueGeneratedNever();
+            entity.ToTable("Countries");
+            entity.HasKey(k => k.Id);
             entity.Property(e => e.Code).HasMaxLength(10);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Status).HasConversion<byte>();
@@ -24,6 +25,7 @@ public partial class MasterDataContext : DbContext
 
         modelBuilder.Entity<State>(entity =>
         {
+            entity.ToTable("States");
             entity.Property(k => k.Id).ValueGeneratedNever();
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Code).HasMaxLength(10);

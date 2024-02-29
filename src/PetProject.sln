@@ -13,6 +13,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{E957A7BA-8FC5-457A-BFE7-56C1AE206AC3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MasterData", "MasterData", "{53A28B58-FEF4-4195-BDD6-0953D51B3424}"
+	ProjectSection(SolutionItems) = preProject
+		CreateTable.sql = CreateTable.sql
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity", "Services\Identity\API\Identity.csproj", "{E5F49FE9-81E6-4969-8783-68D097028D5D}"
 EndProject

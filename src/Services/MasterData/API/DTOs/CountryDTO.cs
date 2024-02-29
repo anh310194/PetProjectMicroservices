@@ -13,5 +13,6 @@ namespace MasterData.DTOs
     public class CountryResponseDTO: CountryDTO
     {
         public int Id { get; set; }
+        public byte[]? RowVersion { get; set; }
     }
 }

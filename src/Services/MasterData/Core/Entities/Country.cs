@@ -7,5 +7,5 @@ public class Country : BaseEntity
     public required string Name { get; set; }
     public EnumStatus Status { get; set; }
 
-    public ICollection<State>? States { get; set; }
+    //public ICollection<State>? States { get; set; }
 }

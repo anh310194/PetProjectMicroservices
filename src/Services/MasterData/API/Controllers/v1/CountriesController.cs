@@ -1,5 +1,6 @@
 ﻿using Core.Interfaces;
 using MasterData.DTOs;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
@@ -23,7 +24,7 @@ namespace MasterData.Controllers.v1
 
             return countries.Select((country) =>
             {
-                return new CountryResponseDTO() { Code = country.Code, Name = country.Name, Id = country.Id, Status = country.Status };
+                return new CountryResponseDTO() { Code = country.Code, Name = country.Name, Id = country.Id, Status = country.Status, RowVersion = country.RowVersion };
             }).ToList();
         }
 
@@ -32,15 +33,17 @@ namespace MasterData.Controllers.v1
         public async Task<ActionResult<CountryResponseDTO>> GetById(int id)
         {
             var country = await _unitOfWork.CountryRepository.FindAsync(id);
-            if(country == null)
+            if (country == null)
             {
                 return NotFound();
             }
 
-            return new CountryResponseDTO() { Code = country.Code, Name = country.Name, Id = country.Id, Status = country.Status };
+            return new CountryResponseDTO() { Code = country.Code, Name = country.Name, Id = country.Id, Status = country.Status, RowVersion = country.RowVersion };
         }
 
         [HttpPost()]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CountryResponseDTO>> Add(CountryDTO country)
         {
             var resultEntry = await _unitOfWork.CountryRepository.InsertAsync(new Country() { Code = country.Code, Status = country.Status, Name = country.Name }, 1);
@@ -54,7 +57,9 @@ namespace MasterData.Controllers.v1
             // Get the inserted country from the EntityEntry
             Country result = resultEntry.Entity;
 
-            return new CountryResponseDTO() { Code = result.Code, Name = result.Name, Id = result.Id, Status = result.Status };
+            var countryDTO = new CountryResponseDTO() { Code = result.Code, Name = result.Name, Id = result.Id, Status = result.Status, RowVersion = result.RowVersion };
+            return StatusCode(StatusCodes.Status201Created, countryDTO);
+
         }
 
 
@@ -91,6 +96,20 @@ namespace MasterData.Controllers.v1
             }
             country.Status = Core.EnumStatus.InActivate;
             _unitOfWork.CountryRepository.Update(country, 1);
+            await _unitOfWork.SaveChangesAsync();
+            return NoContent();
+        }
+
+
+        [HttpDelete("/Delete/{id}")]
+        public async Task<ActionResult<CountryResponseDTO>> InActivate(int id, byte[] RowVersion)
+        {
+            var country = await _unitOfWork.CountryRepository.Queryable(p => p.Id == id && p.RowVersion.SequenceEqual(RowVersion)).FirstOrDefaultAsync();
+            if (country == null)
+            {
+                return NotFound();
+            }
+            _unitOfWork.CountryRepository.Delete(country);
             await _unitOfWork.SaveChangesAsync();
             return NoContent();
         }
