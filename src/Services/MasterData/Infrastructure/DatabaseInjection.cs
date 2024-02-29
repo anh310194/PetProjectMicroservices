@@ -10,7 +10,7 @@ namespace Infrastructure
     {
         public static void AddDatabase(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<MasterDataContext>(opt => opt.UseMySQL(connectionString));
+            services.AddDbContext<MasterDataContext>(opt => opt.UseSqlServer(connectionString));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }

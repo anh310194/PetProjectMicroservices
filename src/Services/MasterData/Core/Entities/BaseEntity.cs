@@ -10,5 +10,5 @@ public abstract class BaseEntity
     public DateTime? UpdatedTime { get; set; }
     public int? UpdatedBy { get; set; }
 
-    public byte[] RowVersion { get; set; }
+    public byte[]? RowVersion { get; set; }
 }
