@@ -19,6 +19,14 @@ services:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "Sa@123456"
 
+  MaterDataCache:
+    image: redis
+    container_name: materdatacache
+    restart: always
+    ports:
+    - 6379:6379
+
+
   # IdentityService:
   #   container_name: IdentityApi
   #   image: identity

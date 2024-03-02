@@ -13,12 +13,12 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
     Task InsertRangeAsync(ICollection<TEntity> entities, int userId, CancellationToken cancellationToken);
     TEntity Update(TEntity entity, int userId);
     void UpdateRange(ICollection<TEntity> entities, int userId);
-    void Delete(object id);
+    void Delete(int id);
     void Delete(TEntity entity);
     void DeleteRange(ICollection<TEntity> entities);
-    TEntity? Find(params object[] keyValues);
-    ValueTask<TEntity?> FindAsync(params object[] keyValues);
-    ValueTask<TEntity?> FindAsync(object[] keyValues, CancellationToken cancellationToken);
+    TEntity? Find(int id);
+    ValueTask<TEntity?> FindAsync(int id);
+    ValueTask<TEntity?> FindAsync(int id, CancellationToken cancellationToken);
     IQueryable<TEntity> Queryable();
     IQueryable<TEntity> Queryable(Expression<Func<TEntity, bool>> predicate);
     IQueryable<TEntity> Queryable(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy);

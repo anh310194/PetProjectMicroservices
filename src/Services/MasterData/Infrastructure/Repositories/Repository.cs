@@ -14,7 +14,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     {
         _dbSet = context.Set<TEntity>();
     }
-    public void Delete(object id)
+    public void Delete(int id)
     {
         var entity = _dbSet.Find(id);
         if (entity == null) return;
@@ -32,19 +32,19 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         _dbSet.RemoveRange(enumerable);
     }
 
-    public TEntity? Find(params object[] keyValues)
+    public TEntity? Find(int id)
     {
-        return _dbSet.Find(keyValues);
+        return _dbSet.Find(id);
     }
 
-    public ValueTask<TEntity?> FindAsync(params object[] keyValues)
+    public ValueTask<TEntity?> FindAsync(int id)
     {
-        return _dbSet.FindAsync(keyValues);
+        return _dbSet.FindAsync(id);
     }
 
-    public ValueTask<TEntity?> FindAsync(object[] keyValues, CancellationToken cancellationToken)
+    public ValueTask<TEntity?> FindAsync(int id, CancellationToken cancellationToken)
     {
-        return _dbSet.FindAsync(cancellationToken, keyValues);
+        return _dbSet.FindAsync(cancellationToken, id);
     }
 
     private void SetBaseValueInsert(TEntity entity, int userId)
