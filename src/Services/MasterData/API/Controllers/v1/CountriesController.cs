@@ -1,9 +1,7 @@
 ﻿using Core.Interfaces;
 using MasterData.DTOs;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 
 namespace MasterData.Controllers.v1
 {

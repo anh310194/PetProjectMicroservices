@@ -4,7 +4,7 @@ using Infrastructure.Persistence;
 
 namespace Infrastructure.Repositories;
 
-public class UnitOfWork(MasterDataContext context) : IUnitOfWork
+public class UnitOfWork(MasterDataContext context, ICacheService cacheService) : IUnitOfWork
 {
     private Dictionary<string, dynamic> repositories = new Dictionary<string, dynamic>();
     private MasterDataContext context = context;
@@ -16,7 +16,7 @@ public class UnitOfWork(MasterDataContext context) : IUnitOfWork
         var repository = repositories.GetValueOrDefault(name);
         if (repository == null)
         {
-            repository = new Repository<TEntity>(context);
+            repository = new Repository<TEntity>(context, cacheService);
             repositories.Add(name, repository);
         }
         return repository;
