@@ -7,10 +7,8 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
 {
     TEntity Insert(TEntity entity, int userId);
     void InsertRange(ICollection<TEntity> entities, int userId);
-    ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, int userId);
-    ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, int userId, CancellationToken cancellationToken);
-    Task InsertRangeAsync(ICollection<TEntity> entities, int userId);
-    Task InsertRangeAsync(ICollection<TEntity> entities, int userId, CancellationToken cancellationToken);
+    ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, int userId, CancellationToken cancellationToken = default);
+    Task InsertRangeAsync(ICollection<TEntity> entities, int userId, CancellationToken cancellationToken = default);
     TEntity Update(TEntity entity, int userId);
     void UpdateRange(ICollection<TEntity> entities, int userId);
     void Delete(int id);
@@ -18,7 +16,6 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
     void DeleteRange(ICollection<TEntity> entities);
     TEntity? Find(int id);
     ValueTask<TEntity?> FindAsync(int id);
-    ValueTask<TEntity?> FindAsync(int id, CancellationToken cancellationToken);
     IQueryable<TEntity> Queryable();
     IQueryable<TEntity> Queryable(Expression<Func<TEntity, bool>> predicate);
     IQueryable<TEntity> Queryable(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy);

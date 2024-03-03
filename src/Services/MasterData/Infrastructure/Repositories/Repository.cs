@@ -43,16 +43,17 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
 
     public async ValueTask<TEntity?> FindAsync(int id)
     {
-        string key = $"{entityName}{id}";
-        var cachedEntity = await this._cacheService.GetDataAsync<TEntity>(key);
-        if(cachedEntity != null)
+        string key = $"{entityName}.{id}";
+        var cachedEntity = this._cacheService.GetData<TEntity>(key);
+        if (cachedEntity != null)
         {
 #pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
-            return await ValueTask.FromResult(cachedEntity).ConfigureAwait(false);
+            return await ValueTask.FromResult(cachedEntity);
 #pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
         }
         var entity = await _dbSet.FindAsync(id);
-        if(entity == null)
+
+        if (entity == null)
         {
             return null;
         }
@@ -60,11 +61,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         _cacheService.SetData(key, entity, expirationTime);
         return entity;
 
-    }
-
-    public ValueTask<TEntity?> FindAsync(int id, CancellationToken cancellationToken)
-    {
-        return _dbSet.FindAsync(cancellationToken, id);
     }
 
     private void SetBaseValueInsert(TEntity entity, int userId)
@@ -79,13 +75,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         return _dbSet.Add(entity).Entity;
     }
 
-    public ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, int userId)
-    {
-        SetBaseValueInsert(entity, userId);
-        return _dbSet.AddAsync(entity);
-    }
-
-    public ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, int userId, CancellationToken cancellationToken)
+    public ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, int userId, CancellationToken cancellationToken = default)
     {
         SetBaseValueInsert(entity, userId);
         return _dbSet.AddAsync(entity, cancellationToken);
@@ -111,7 +101,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         return _dbSet.AddRangeAsync(enumerable);
     }
 
-    public Task InsertRangeAsync(ICollection<TEntity> entities, int userId, CancellationToken cancellationToken)
+    public Task InsertRangeAsync(ICollection<TEntity> entities, int userId, CancellationToken cancellationToken = default)
     {
         var enumerable = entities.AsEnumerable().Select(s =>
         {
@@ -154,6 +144,8 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
 
     public TEntity Update(TEntity entity, int userId)
     {
+        string key = $"{entityName}.{entity.Id}";
+        this._cacheService.RemoveData(key);
         SetBaseValueUpdate(entity, userId);
         return _dbSet.Update(entity).Entity;
     }
@@ -162,6 +154,8 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     {
         var enumerable = entities.AsEnumerable().Select(s =>
         {
+            string key = $"{entityName}.{s.Id}";
+            this._cacheService.RemoveData(key);
             SetBaseValueUpdate(s, userId);
             return s;
         });
