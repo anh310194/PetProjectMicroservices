@@ -6,15 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-
-	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
-	</ItemGroup>
-
-
-	<ItemGroup>
-	  <Folder Include="Interfaces\Service\" />
-	</ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\MasterData.Domain\MasterData.Domain.csproj" />
+  </ItemGroup>
 
 </Project>

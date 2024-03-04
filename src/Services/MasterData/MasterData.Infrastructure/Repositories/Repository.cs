@@ -1,11 +1,11 @@
 using System.Linq.Expressions;
-using Core.Entities.BaseEntity;
-using Core.Interfaces.Persistence;
-using Infrastructure.Persistence;
+using MasterData.Domain.Entities;
+using MasterData.Domain.Interfaces;
+using MasterData.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Infrastructure.Repositories;
+namespace MasterData.Domain.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {

@@ -1,8 +1,9 @@
-using Core.Entities.BaseEntity;
-using Core.Interfaces.Persistence;
-using Infrastructure.Persistence;
+using MasterData.Domain.Entities;
+using MasterData.Domain.Interfaces;
+using MasterData.Domain.Repositories;
+using MasterData.Infrastructure.Persistence;
 
-namespace Infrastructure.Repositories;
+namespace MasterData.Infrastructure.Repositories;
 
 public class UnitOfWork(MasterDataContext context, ICacheService cacheService) : IUnitOfWork
 {

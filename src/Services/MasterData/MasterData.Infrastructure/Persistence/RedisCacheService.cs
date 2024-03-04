@@ -1,8 +1,8 @@
-﻿using Core.Interfaces.Persistence;
+﻿using MasterData.Domain.Interfaces;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
-namespace Infrastructure.Persistence
+namespace MasterData.Infrastructure.Persistence
 {
     public class RedisCacheService : ICacheService
     {
