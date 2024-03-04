@@ -1,3 +1,4 @@
+using MasterData.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasterData.Infrastructure.Persistence;

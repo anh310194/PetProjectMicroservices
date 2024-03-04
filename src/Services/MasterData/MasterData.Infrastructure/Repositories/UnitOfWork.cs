@@ -5,10 +5,9 @@ using MasterData.Infrastructure.Persistence;
 
 namespace MasterData.Infrastructure.Repositories;
 
-public class UnitOfWork(MasterDataContext context, ICacheService cacheService) : IUnitOfWork
+public class UnitOfWork(MasterDataContext context) : IUnitOfWork
 {
-    private Dictionary<string, dynamic> repositories = new Dictionary<string, dynamic>();
-    private MasterDataContext context = context;
+    private Dictionary<string, dynamic> repositories = new Dictionary<string, dynamic>();    
     private bool disposed = false;
 
     private Repository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity
@@ -17,7 +16,7 @@ public class UnitOfWork(MasterDataContext context, ICacheService cacheService) :
         var repository = repositories.GetValueOrDefault(name);
         if (repository == null)
         {
-            repository = new Repository<TEntity>(context, cacheService);
+            repository = new Repository<TEntity>(context);
             repositories.Add(name, repository);
         }
         return repository;

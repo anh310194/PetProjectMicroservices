@@ -19,19 +19,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MasterData", "MasterData", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity", "Services\Identity\API\Identity.csproj", "{E5F49FE9-81E6-4969-8783-68D097028D5D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterData", "Services\MasterData\API\MasterData.csproj", "{BE57B043-8996-4B12-8677-3DC259B48DAA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Services\Identity\Infrastructure\Infrastructure.csproj", "{0656B1AC-F277-487C-A889-552EE94AA327}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Services\Identity\Core\Core.csproj", "{99D916BA-5C34-4D6F-9296-05F205F4A7F8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterData.Application", "Services\MasterData\MasterData.Application\MasterData.Application.csproj", "{348DF765-E8CE-42C3-9676-3144FA387195}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterData.Domain", "Services\MasterData\MasterData.Domain\MasterData.Domain.csproj", "{61DFFA21-BC0E-435C-91EB-FB8C48AE4206}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterData.Domain", "Services\MasterData\MasterData.Domain\MasterData.Domain.csproj", "{61DFFA21-BC0E-435C-91EB-FB8C48AE4206}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterData.Infrastructure", "Services\MasterData\MasterData.Infrastructure\MasterData.Infrastructure.csproj", "{D6FA7452-72E6-43CA-B9B7-4D45CB5BEA99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterData.Infrastructure", "Services\MasterData\MasterData.Infrastructure\MasterData.Infrastructure.csproj", "{D6FA7452-72E6-43CA-B9B7-4D45CB5BEA99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterData.API", "Services\MasterData\MasterData.API\MasterData.API.csproj", "{FCD695A9-F056-4DAE-9898-43D34132AB5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterData.API", "Services\MasterData\MasterData.API\MasterData.API.csproj", "{FCD695A9-F056-4DAE-9898-43D34132AB5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +41,6 @@ Global
 		{E5F49FE9-81E6-4969-8783-68D097028D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5F49FE9-81E6-4969-8783-68D097028D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5F49FE9-81E6-4969-8783-68D097028D5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE57B043-8996-4B12-8677-3DC259B48DAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE57B043-8996-4B12-8677-3DC259B48DAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE57B043-8996-4B12-8677-3DC259B48DAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE57B043-8996-4B12-8677-3DC259B48DAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0656B1AC-F277-487C-A889-552EE94AA327}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0656B1AC-F277-487C-A889-552EE94AA327}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0656B1AC-F277-487C-A889-552EE94AA327}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -79,7 +73,6 @@ Global
 		{E957A7BA-8FC5-457A-BFE7-56C1AE206AC3} = {904AB80E-2FBF-45CA-8489-DC39944543CD}
 		{53A28B58-FEF4-4195-BDD6-0953D51B3424} = {904AB80E-2FBF-45CA-8489-DC39944543CD}
 		{E5F49FE9-81E6-4969-8783-68D097028D5D} = {E957A7BA-8FC5-457A-BFE7-56C1AE206AC3}
-		{BE57B043-8996-4B12-8677-3DC259B48DAA} = {53A28B58-FEF4-4195-BDD6-0953D51B3424}
 		{0656B1AC-F277-487C-A889-552EE94AA327} = {E957A7BA-8FC5-457A-BFE7-56C1AE206AC3}
 		{99D916BA-5C34-4D6F-9296-05F205F4A7F8} = {E957A7BA-8FC5-457A-BFE7-56C1AE206AC3}
 		{348DF765-E8CE-42C3-9676-3144FA387195} = {53A28B58-FEF4-4195-BDD6-0953D51B3424}

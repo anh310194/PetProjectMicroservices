@@ -8,7 +8,7 @@ namespace MasterData.Application
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            services.AddTransient<ICountryService, CountryService>()
+            services.AddTransient<ICountryService, CountryService>();
         }
     }
 }

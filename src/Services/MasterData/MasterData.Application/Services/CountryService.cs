@@ -1,22 +1,32 @@
 ﻿using MasterData.Application.Interfaces;
 using MasterData.Application.Models;
 using MasterData.Domain;
+using MasterData.Domain.Entities;
 using MasterData.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasterData.Application.Services
 {
-    public class CountryService(IUnitOfWork unitOfWork) : ICountryService
+    public class CountryService(IUnitOfWork unitOfWork, ICacheService cacheService) : ICountryService
     {
-        public Task<CountryResponseModel> AddCountry(CountryModel country)
+        private string GetKeyCache(int id)
         {
-            throw new NotImplementedException();
+            return $"Country:{id}";
+        }
+
+        public async Task<CountryResponseModel> AddCountry(CountryModel country, int userId)
+        {
+            var countryInserted = unitOfWork.CountryRepository.Insert(new Country() { Code = country.Code, Name = country.Name, Status = country.Status }, userId);
+            await unitOfWork.SaveChangesAsync();
+            return new CountryResponseModel() { Code = countryInserted.Code, Name = countryInserted.Name, Status = countryInserted.Status, Id = countryInserted.Id, RowVersion = countryInserted.RowVersion };
         }
 
         public async Task DeleteCountry(int id)
         {
             unitOfWork.CountryRepository.Delete(id);
             await unitOfWork.SaveChangesAsync();
+            string key = GetKeyCache(id);
+            cacheService.RemoveData(key);
         }
 
         public Task<List<CountryResponseModel>> GetAll()
@@ -34,13 +44,24 @@ namespace MasterData.Application.Services
 
         public Task<CountryResponseModel> GetById(int id)
         {
+            string key = GetKeyCache(id);
+            var cachedEntity = cacheService.GetData<CountryResponseModel>(key);
+            if (cachedEntity != null)
+            {
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
+                return Task.FromResult(cachedEntity);
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
+            }
             return unitOfWork.CountryRepository.FindAsync(id).AsTask().ContinueWith((result) =>{
                 var country = result.Result;
                 if (country == null)
                 {
                     throw new NullReferenceException();
                 }
-                return new CountryResponseModel() { Code = country.Code, Name = country.Name, Id = country.Id, Status = country.Status, RowVersion = country.RowVersion };
+                var countryModel = new CountryResponseModel() { Code = country.Code, Name = country.Name, Id = country.Id, Status = country.Status, RowVersion = country.RowVersion };
+                DateTimeOffset expirationTime = DateTimeOffset.Now.AddMinutes(5.0);
+                cacheService.SetData(key, countryModel, expirationTime);
+                return countryModel;
             });
         }
 
@@ -58,6 +79,8 @@ namespace MasterData.Application.Services
             country.Status = status;
             unitOfWork.CountryRepository.Update(country, 1);
             await unitOfWork.SaveChangesAsync();
+            string key = GetKeyCache(id);
+            cacheService.RemoveData(key);
             return await unitOfWork.CountryRepository.FindAsync(id).AsTask().ContinueWith((result) => {
                 var country = result.Result;
                 if (country == null)

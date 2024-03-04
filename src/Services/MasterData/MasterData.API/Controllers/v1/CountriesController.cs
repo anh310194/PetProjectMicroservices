@@ -29,7 +29,7 @@ namespace MasterData.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CountryResponseModel>> Add(CountryModel country)
         {
-            var countryInserted = await countryService.AddCountry(country);
+            var countryInserted = await countryService.AddCountry(country, 1);
             return StatusCode(StatusCodes.Status201Created, countryInserted);
 
         }

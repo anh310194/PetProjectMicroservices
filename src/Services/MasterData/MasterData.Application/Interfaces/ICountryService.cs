@@ -8,7 +8,7 @@ namespace MasterData.Application.Interfaces
     {
         Task<List<CountryResponseModel>> GetAll();
         Task<CountryResponseModel> GetById(int id);
-        Task<CountryResponseModel> AddCountry(CountryModel country);
+        Task<CountryResponseModel> AddCountry(CountryModel country, int userId);
         Task<CountryResponseModel> UpdateStatus(int id, EnumStatus status);
         Task DeleteCountry(int id);
     }

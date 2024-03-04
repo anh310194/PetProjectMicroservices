@@ -10,13 +10,10 @@ namespace MasterData.Domain.Repositories;
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
     private readonly DbSet<TEntity> _dbSet;
-    private readonly ICacheService _cacheService;
-    private string entityName = typeof(TEntity).Name;
 
-    public Repository(MasterDataContext context, ICacheService cacheService)
+    public Repository(MasterDataContext context)
     {
         _dbSet = context.Set<TEntity>();
-        this._cacheService = cacheService;
     }
     public void Delete(int id)
     {
@@ -27,8 +24,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
 
     public void Delete(TEntity entity)
     {
-        string key = GetKeyCache(entity.Id);
-        this._cacheService.RemoveData(key);
         _dbSet.Remove(entity);
     }
 
@@ -36,11 +31,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     {
         var enumerable = entities.AsEnumerable();
         _dbSet.RemoveRange(enumerable);
-        foreach(var e in enumerable)
-        {
-            string key = GetKeyCache(e.Id);
-            _cacheService.RemoveData(key);
-        }
     }
 
     public TEntity? Find(int id)
@@ -48,30 +38,9 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         return _dbSet.Find(id);
     }
 
-    private string GetKeyCache(int id) {
-        return $"{entityName}:{id}";
-    }
-
-    public async ValueTask<TEntity?> FindAsync(int id)
+    public ValueTask<TEntity?> FindAsync(int id)
     {
-        string key = GetKeyCache(id);
-        var cachedEntity = this._cacheService.GetData<TEntity>(key);
-        if (cachedEntity != null)
-        {
-#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
-            return await ValueTask.FromResult(cachedEntity);
-#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
-        }
-        var entity = await _dbSet.FindAsync(id);
-
-        if (entity == null)
-        {
-            return null;
-        }
-        DateTimeOffset expirationTime = DateTimeOffset.Now.AddMinutes(5.0);
-        _cacheService.SetData(key, entity, expirationTime);
-        return entity;
-
+        return _dbSet.FindAsync(id);
     }
 
     private void SetBaseValueInsert(TEntity entity, int userId)
@@ -155,8 +124,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
 
     public TEntity Update(TEntity entity, int userId)
     {
-        string key = GetKeyCache(entity.Id);
-        this._cacheService.RemoveData(key);
         SetBaseValueUpdate(entity, userId);
         return _dbSet.Update(entity).Entity;
     }
@@ -165,8 +132,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
     {
         var enumerable = entities.AsEnumerable().Select(s =>
         {
-            string key = GetKeyCache(s.Id);
-            _cacheService.RemoveData(key);
             SetBaseValueUpdate(s, userId);
             return s;
         });
