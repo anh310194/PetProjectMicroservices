@@ -11,7 +11,9 @@ namespace MasterData.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddStackExchangeRedisCache(op => op.Configuration = configuration.GetConnectionString("RedisConnection"));
+            var redisConnecdtion = configuration.GetConnectionString("RedisConnection");
+            Console.WriteLine(redisConnecdtion);
+            services.AddStackExchangeRedisCache(op => op.Configuration = redisConnecdtion);
             services.AddDbContext<MasterDataContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICacheService, RedisCacheService>();
