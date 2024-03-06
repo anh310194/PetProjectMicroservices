@@ -1,22 +1,16 @@
 ﻿using MasterData.Domain.Interfaces;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using StackExchange.Redis;
 
 namespace MasterData.Infrastructure.Persistence
 {
-    public class RedisCacheService : ICacheService
+    public class RedisCacheService(IDistributedCache redisDb) : ICacheService
     {
-        private IDatabase _redisDb;
-        public RedisCacheService(IConnectionMultiplexer connectionMultiplexer)
-        {
-            _redisDb = connectionMultiplexer.GetDatabase();
-
-        }
-
         public T? GetData<T>(string key)
         {
-            var value = _redisDb.StringGet(key);
-            if (value.IsNullOrEmpty)
+            var value = redisDb.GetString(key);
+            if (value.IsNullOrEmpty())
             {
                 return default;
             }
@@ -25,10 +19,10 @@ namespace MasterData.Infrastructure.Persistence
 
         public Task<T?> GetDataAsync<T>(string key)
         {
-            return _redisDb.StringGetAsync(key).ContinueWith((result) =>
+            return redisDb.GetStringAsync(key).ContinueWith((result) =>
             {
                 var value = result.Result;
-                if (value.IsNullOrEmpty)
+                if (value.IsNullOrEmpty())
                 {
                     return default;
                 }
@@ -37,37 +31,40 @@ namespace MasterData.Infrastructure.Persistence
             
         }
 
-        public bool SetData<T>(string key, T value, DateTimeOffset expirationTime)
+        public void SetData<T>(string key, T value, DateTimeOffset expirationTime)
         {
-            TimeSpan expiryTime = expirationTime.DateTime.Subtract(DateTime.Now);
-            var isSet = _redisDb.StringSet(key, JsonConvert.SerializeObject(value), expiryTime);
-            return isSet;
+            var options = new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Set expiration time
+            };
+            redisDb.SetString(key, JsonConvert.SerializeObject(value), options);            
         }
 
-        public Task<bool> SetDataAsync<T>(string key, T value, DateTimeOffset expirationTime)
+        public Task SetDataAsync<T>(string key, T value, DateTimeOffset expirationTime)
         {
-            TimeSpan expiryTime = expirationTime.DateTime.Subtract(DateTime.Now);
-            return _redisDb.StringSetAsync(key, JsonConvert.SerializeObject(value), expiryTime);
+            var options = new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Set expiration time
+            };
+            return redisDb.SetStringAsync(key, JsonConvert.SerializeObject(value), options);
         }
 
-        public object RemoveData(string key)
+        public void RemoveData(string key)
         {
-            bool _isKeyExist = _redisDb.KeyExists(key);
+            var _isKeyExist = redisDb.GetString(key) != null;
             if (_isKeyExist == true)
             {
-                return _redisDb.KeyDelete(key);
-            }
-            return false;
+                redisDb.Remove(key);
+            }            
         }
 
-        public async Task<object> RemoveDataAsync(string key)
+        public async Task RemoveDataAsync(string key)
         {
-            bool _isKeyExist = await _redisDb.KeyExistsAsync(key);
-            if (_isKeyExist == true)
+            var _isKeyExist = redisDb.GetString(key);
+            if (_isKeyExist != null)
             {
-                return await _redisDb.KeyDeleteAsync(key);
+                await redisDb.RemoveAsync(key);
             }
-            return false;
         }
     }
 }

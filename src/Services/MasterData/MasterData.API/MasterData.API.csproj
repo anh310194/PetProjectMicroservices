@@ -5,6 +5,9 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<InvariantGlobalization>false</InvariantGlobalization>
+		<UserSecretsId>d6369d9c-d4d0-4123-94d4-915cf8b168ca</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>..\..\..</DockerfileContext>
 	</PropertyGroup>
 
 
@@ -12,6 +15,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	</ItemGroup>
 
@@ -21,11 +25,5 @@
 	  <ProjectReference Include="..\MasterData.Domain\MasterData.Domain.csproj" />
 	  <ProjectReference Include="..\MasterData.Infrastructure\MasterData.Infrastructure.csproj" />
 	</ItemGroup>
-
-
-	<ItemGroup>
-	  <Folder Include="DTOs\" />
-	</ItemGroup>
-
 
 </Project>

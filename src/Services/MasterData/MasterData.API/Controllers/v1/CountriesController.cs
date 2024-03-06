@@ -31,7 +31,6 @@ namespace MasterData.API.Controllers.v1
         {
             var countryInserted = await countryService.AddCountry(country, 1);
             return StatusCode(StatusCodes.Status201Created, countryInserted);
-
         }
 
 

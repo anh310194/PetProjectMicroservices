@@ -19,16 +19,16 @@
         /// <param name="value"></param>
         /// <param name="expirationTime"></param>
         /// <returns></returns>
-        bool SetData<T>(string key, T value, DateTimeOffset expirationTime);
-        Task<bool> SetDataAsync<T>(string key, T value, DateTimeOffset expirationTime);
+        void SetData<T>(string key, T value, DateTimeOffset expirationTime);
+        Task SetDataAsync<T>(string key, T value, DateTimeOffset expirationTime);
 
         /// <summary>
         /// Remove Data
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        object RemoveData(string key);
+        void RemoveData(string key);
 
-        Task<object> RemoveDataAsync(string key);
+        Task RemoveDataAsync(string key);
     }
 }
