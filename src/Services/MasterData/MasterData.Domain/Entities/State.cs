@@ -7,5 +7,5 @@ public class State : BaseEntity
     public required string Code { get; set; }
     public EnumStatus Status { get; set; }
 
-    public Country? Country { get; set; }
+    public Country Country { get; set; } = null!;
 }

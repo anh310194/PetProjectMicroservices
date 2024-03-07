@@ -18,25 +18,26 @@ public partial class MasterDataContext : DbContext
             entity.Property(e => e.Code).HasMaxLength(10);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Status).HasConversion<byte>();
-
             entity.Property(e => e.RowVersion)
                 .IsRowVersion()
                 .IsConcurrencyToken();
+
+            entity.HasMany(e => e.States).WithOne(e => e.Country).HasForeignKey(e=> e.CountryId).IsRequired();
         });
 
         modelBuilder.Entity<State>(entity =>
         {
             entity.ToTable("States");
-            entity.Property(k => k.Id).ValueGeneratedNever();
+            entity.HasKey(k => k.Id);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Code).HasMaxLength(10);
             entity.Property(e => e.Status).HasConversion<byte>();
-
-
             entity.Property(e => e.RowVersion)
                 .IsRequired()
                 .IsRowVersion()
                 .IsConcurrencyToken();
+
+            entity.HasOne(e => e.Country).WithMany(e => e.States).HasForeignKey(e => e.CountryId).IsRequired();
         });
 
         OnModelCreatingPartial(modelBuilder);

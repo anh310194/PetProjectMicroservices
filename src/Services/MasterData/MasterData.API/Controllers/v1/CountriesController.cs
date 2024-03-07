@@ -34,21 +34,21 @@ namespace MasterData.API.Controllers.v1
         }
 
 
-        [HttpPatch("/activate/{id}")]
+        [HttpPatch("activate/{id}")]
         public async Task<ActionResult<CountryResponseModel>> Activate(int id)
         {
             return await countryService.UpdateStatus(id, EnumStatus.Activate);            
         }
 
 
-        [HttpPatch("/Inactivate/{id}")]
+        [HttpPatch("Inactivate/{id}")]
         public async Task<ActionResult<CountryResponseModel>> InActivate(int id)
         {
             return await countryService.UpdateStatus(id, EnumStatus.InActivate);
         }
 
 
-        [HttpDelete("/Delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
             await countryService.DeleteCountry(id);
