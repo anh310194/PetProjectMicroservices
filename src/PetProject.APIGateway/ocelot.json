@@ -1,0 +1,19 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/v1/Countries/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "masterdataapi",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/Countries/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    //"BaseUrl": "https://localhost:9000"
+  }
+}

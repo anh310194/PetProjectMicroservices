@@ -28,4 +28,26 @@ services:
       context: .
       dockerfile: Services/MasterData/MasterData.API/Dockerfile
     ports:
-      - "5000:5000"
+      - "5000:5000"    
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5000
+    # volumes:
+    #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+    #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  petprojectgateway:
+    image: petprojectgateway
+    container_name: petprojectgateway  
+    restart: always  
+    build:
+      context: .
+      dockerfile: PetProject.APIGateway/Dockerfile
+    ports:
+      - "9000:9000"    
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=9000
+    # volumes:
+    #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+    #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
