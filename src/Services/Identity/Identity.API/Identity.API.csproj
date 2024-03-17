@@ -20,11 +20,11 @@
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
-
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Identity.Service\Identity.Service.csproj" />
+    <ProjectReference Include="..\TokenManageHandler\TokenManageHandler.csproj" />
   </ItemGroup>
 
 </Project>

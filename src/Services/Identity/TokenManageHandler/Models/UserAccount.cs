@@ -1,4 +1,4 @@
-﻿namespace Identity.Service.Models
+﻿namespace TokenManageHandler.Models
 {
     public class UserAccount
     {

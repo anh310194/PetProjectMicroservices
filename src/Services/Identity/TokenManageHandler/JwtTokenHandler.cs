@@ -1,10 +1,10 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using TokenManageHandler.Models;
+using Microsoft.IdentityModel.Tokens;
 
-namespace Identity.API
+namespace TokenManageHandler
 {
     public class JwtTokenHandler()
     {

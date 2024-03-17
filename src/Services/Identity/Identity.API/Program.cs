@@ -1,10 +1,7 @@
-using Identity.API;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Identity.Service;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using TokenManageHandler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,27 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddPetProjectIdentityService();
-var securityKey = Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? string.Empty;
-if (String.IsNullOrEmpty(securityKey))
-{
-    throw new Exception("The secret key cound not be found.");
-}
-builder.Services.AddAuthentication(o =>
-{
-    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-}).AddJwtBearer(o =>
-{
-    o.RequireHttpsMetadata = false;
-    o.SaveToken = true;
-    o.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuerSigningKey = true,
-        ValidateIssuer = true,
-        ValidateAudience = false,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(securityKey))
-    };
-});
+builder.Services.AddCustomTokenManage();
 builder.Services.AddSingleton<JwtTokenHandler>();
 builder.Services.AddApiVersioning(x =>
 {
