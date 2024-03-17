@@ -20,6 +20,24 @@ services:
     ports:
     - 6379:6379
 
+  identityapi:
+    image: identityapi
+    container_name: identityapi  
+    restart: always  
+    build:
+      context: .
+      dockerfile: Services/Identity/Identity.API/Dockerfile
+    ports:
+      - "6000:6000"    
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=6000
+      - PETPROJECT_JWT_SECURITY_KEY=rWRSlbDofIojJkwAN1tip36aK4FO0DLx
+      - PET_PROJECT_JWT_TOKEN_VALIDITY_MINS=20
+    # volumes:
+    #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+    #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
   masterdataapi:
     image: masterdataapi
     container_name: masterdata  
@@ -32,6 +50,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=5000
+      - PETPROJECT_JWT_SECURITY_KEY=rWRSlbDofIojJkwAN1tip36aK4FO0DLx
     # volumes:
     #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
     #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

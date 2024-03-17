@@ -1,5 +1,20 @@
 {
   "Routes": [
+    // Authentication API
+    {
+      "DownstreamPathTemplate": "/api/v1/Authentication",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityapi",
+          "Port": 6000
+        }
+      ],
+      "UpstreamPathTemplate": "/Authentication",
+      "UpstreamHttpMethod": [ "POST"]
+    },
+
+    // Master Data API
     {
       "DownstreamPathTemplate": "/api/v1/Countries/{id}",
       "DownstreamScheme": "http",

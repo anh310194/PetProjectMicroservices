@@ -1,4 +1,5 @@
-﻿using Identity.Service.Interfaces;
+﻿using Identity.API.Models;
+using Identity.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.API.Controllers.v1
@@ -9,9 +10,9 @@ namespace Identity.API.Controllers.v1
     public class AuthenticationController(IUserService userService, JwtTokenHandler jwtTokenHandler) : Controller
     {
         [HttpPost]
-        public IActionResult Login(string userName, string password)
+        public IActionResult Login([FromBody] AuthenticationRequest request)
         {
-            var user = userService.Login(userName, password);
+            var user = userService.Login(request.UserName, request.Password);
             var authen = jwtTokenHandler.GenerateJwtToken(user);
             return Json(authen);
         }
