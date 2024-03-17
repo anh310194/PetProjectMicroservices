@@ -24,9 +24,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetProject.APIGateway", "PetProject.APIGateway\PetProject.APIGateway.csproj", "{AAADD257-22BB-4C4F-A1C1-EAB2658805BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.API", "Services\Identity\Identity.API\Identity.API.csproj", "{EC1791C7-6CCC-4240-A2FC-D0AEEE713E1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.API", "Services\Identity\Identity.API\Identity.API.csproj", "{EC1791C7-6CCC-4240-A2FC-D0AEEE713E1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Service", "Services\Identity\Identity.Service\Identity.Service.csproj", "{F44077AE-D778-423E-8FA5-136AE0F2C196}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Service", "Services\Identity\Identity.Service\Identity.Service.csproj", "{F44077AE-D778-423E-8FA5-136AE0F2C196}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

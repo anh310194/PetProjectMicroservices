@@ -11,9 +11,12 @@
         }
       ],
       "UpstreamPathTemplate": "/Authentication",
-      "UpstreamHttpMethod": [ "POST"]
+      "UpstreamHttpMethod": [ "POST" ]
+      //,"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": []
+      //}
     },
-
     // Master Data API
     {
       "DownstreamPathTemplate": "/api/v1/Countries/{id}",
@@ -26,6 +29,18 @@
       ],
       "UpstreamPathTemplate": "/Countries/{id}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Countries",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "masterdataapi",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/Countries",
+      "UpstreamHttpMethod": [ "GET"]
     }
   ],
   "GlobalConfiguration": {

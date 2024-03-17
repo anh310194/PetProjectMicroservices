@@ -1,6 +1,7 @@
 ﻿using MasterData.Application.Interfaces;
 using MasterData.Application.Models;
 using MasterData.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasterData.API.Controllers.v1
@@ -12,6 +13,7 @@ namespace MasterData.API.Controllers.v1
     {
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<CountryResponseModel>>> GetAll()
         {
             return await countryService.GetAll();

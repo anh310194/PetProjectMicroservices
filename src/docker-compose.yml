@@ -23,7 +23,7 @@ services:
   identityapi:
     image: identityapi
     container_name: identityapi  
-    restart: always  
+    # restart: always  
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
@@ -41,7 +41,7 @@ services:
   masterdataapi:
     image: masterdataapi
     container_name: masterdata  
-    restart: always  
+    # restart: always  
     build:
       context: .
       dockerfile: Services/MasterData/MasterData.API/Dockerfile
@@ -58,7 +58,7 @@ services:
   petprojectgateway:
     image: petprojectgateway
     container_name: petprojectgateway  
-    restart: always  
+    # restart: always  
     build:
       context: .
       dockerfile: PetProject.APIGateway/Dockerfile
