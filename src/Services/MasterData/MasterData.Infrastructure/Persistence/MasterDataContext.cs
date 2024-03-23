@@ -1,5 +1,6 @@
 using MasterData.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace MasterData.Infrastructure.Persistence;
 
@@ -8,6 +9,9 @@ public partial class MasterDataContext : DbContext
     public MasterDataContext(DbContextOptions<MasterDataContext> options) : base(options)
     {
     }
+
+    public DbSet<Country> Countries { get; set; }
+    public DbSet<State> States { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
