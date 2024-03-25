@@ -4,6 +4,7 @@ using MasterData.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace MasterData.Infrastructure
 {
@@ -17,6 +18,17 @@ namespace MasterData.Infrastructure
             services.AddDbContext<MasterDataContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICacheService, RedisCacheService>();
+        }
+
+
+        public static void RunMigration(this IServiceProvider serviceProvider)
+        {
+
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<MasterDataContext>();
+                db.Database.Migrate();
+            }
         }
     }
 }

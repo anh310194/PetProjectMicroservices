@@ -1,6 +1,7 @@
 using MasterData.API.Exceptions;
 using MasterData.Application;
 using MasterData.Infrastructure;
+using MasterData.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 
@@ -35,6 +36,7 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
 
+app.Services.RunMigration();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
