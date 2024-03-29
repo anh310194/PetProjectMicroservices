@@ -9,12 +9,6 @@ namespace TokenManageHandler
     {
         public static void AddCustomTokenManage(this IServiceCollection services)
         {
-
-            var securityKey = Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? string.Empty;
-            if (string.IsNullOrEmpty(securityKey))
-            {
-                throw new Exception("The secret key cound not be found.");
-            }
             services.AddAuthentication(o =>
             {
                 o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -28,7 +22,7 @@ namespace TokenManageHandler
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = true,
                     ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(securityKey))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JwtTokenHandler.JWT_SECURITY_KEY))
                 };
             });
         }

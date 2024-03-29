@@ -1,5 +1,6 @@
 ﻿using Identity.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using TokenManageHandler;
 using TokenManageHandler.Models;
 
 namespace Identity.API.Controllers.v1

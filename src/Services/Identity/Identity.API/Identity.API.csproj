@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\TokenManageHandler\TokenManageHandler.csproj" />
     <ProjectReference Include="..\Identity.Service\Identity.Service.csproj" />
-    <ProjectReference Include="..\TokenManageHandler\TokenManageHandler.csproj" />
   </ItemGroup>
 
 </Project>

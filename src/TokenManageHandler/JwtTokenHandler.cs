@@ -1,28 +1,31 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using TokenManageHandler.Models;
-using Microsoft.IdentityModel.Tokens;
 
 namespace TokenManageHandler
 {
     public class JwtTokenHandler()
     {
+
+        //public static string securityKey = Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? string.Empty;
+        public static string JWT_SECURITY_KEY = "rWRSlbDofIojJkwAN1tip36aK4FO0DLx";
         public AuthenticationResponse GenerateJwtToken(UserAccount userAccountAuthenticated)
         {
-            var JWT_SECURITY_KEY = Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? "";
-            var JWT_TOKEN_VALIDITY_MINS = int.Parse(Environment.GetEnvironmentVariable("PET_PROJECT_JWT_TOKEN_VALIDITY_MINS") ?? "0");
-            
+            //var JWT_SECURITY_KEY = Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? "";
+            var JWT_TOKEN_VALIDITY_MINS = 180;
+
             var tokenExpiryTimestamp = DateTime.Now.AddMinutes(JWT_TOKEN_VALIDITY_MINS);
             var tokenKey = Encoding.ASCII.GetBytes(JWT_SECURITY_KEY);
             var claimsIdentity = new ClaimsIdentity(new List<Claim>() {
                 new Claim(JwtRegisteredClaimNames.Name, userAccountAuthenticated.UserName),
-                new Claim(ClaimTypes.GivenName, userAccountAuthenticated.DisplayName),
-                new Claim(ClaimTypes.StreetAddress, userAccountAuthenticated.Address??""),
-                new Claim(ClaimTypes.MobilePhone, userAccountAuthenticated.Phone??""),
-                new Claim(ClaimTypes.Email, userAccountAuthenticated.Email??""),
-                new Claim(ClaimTypes.Role, userAccountAuthenticated.Role),
-                new Claim(ClaimTypes.Uri, userAccountAuthenticated.Avatar??""),
+                //new Claim(ClaimTypes.GivenName, userAccountAuthenticated.DisplayName),
+                //new Claim(ClaimTypes.StreetAddress, userAccountAuthenticated.Address??""),
+                //new Claim(ClaimTypes.MobilePhone, userAccountAuthenticated.Phone??""),
+                //new Claim(ClaimTypes.Email, userAccountAuthenticated.Email??""),
+                //new Claim(ClaimTypes.Role, userAccountAuthenticated.Role),
+                //new Claim(ClaimTypes.Uri, userAccountAuthenticated.Avatar??""),
             });
 
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature);

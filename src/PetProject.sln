@@ -8,9 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{E957A7BA-8FC5-457A-BFE7-56C1AE206AC3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MasterData", "MasterData", "{53A28B58-FEF4-4195-BDD6-0953D51B3424}"
-	ProjectSection(SolutionItems) = preProject
-		CreateTable.sql = CreateTable.sql
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterData.Application", "Services\MasterData\MasterData.Application\MasterData.Application.csproj", "{348DF765-E8CE-42C3-9676-3144FA387195}"
 EndProject
@@ -28,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.API", "Services\Id
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Service", "Services\Identity\Identity.Service\Identity.Service.csproj", "{F44077AE-D778-423E-8FA5-136AE0F2C196}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TokenManageHandler", "Services\Identity\TokenManageHandler\TokenManageHandler.csproj", "{26C207C0-49EB-43D6-856A-6B533EBD275A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TokenManageHandler", "TokenManageHandler\TokenManageHandler.csproj", "{A20E72BE-A948-44E7-8201-A6C8FEACFEB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,10 +65,10 @@ Global
 		{F44077AE-D778-423E-8FA5-136AE0F2C196}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F44077AE-D778-423E-8FA5-136AE0F2C196}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F44077AE-D778-423E-8FA5-136AE0F2C196}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26C207C0-49EB-43D6-856A-6B533EBD275A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26C207C0-49EB-43D6-856A-6B533EBD275A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26C207C0-49EB-43D6-856A-6B533EBD275A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26C207C0-49EB-43D6-856A-6B533EBD275A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A20E72BE-A948-44E7-8201-A6C8FEACFEB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A20E72BE-A948-44E7-8201-A6C8FEACFEB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A20E72BE-A948-44E7-8201-A6C8FEACFEB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A20E72BE-A948-44E7-8201-A6C8FEACFEB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,7 +82,6 @@ Global
 		{FCD695A9-F056-4DAE-9898-43D34132AB5F} = {53A28B58-FEF4-4195-BDD6-0953D51B3424}
 		{EC1791C7-6CCC-4240-A2FC-D0AEEE713E1B} = {E957A7BA-8FC5-457A-BFE7-56C1AE206AC3}
 		{F44077AE-D778-423E-8FA5-136AE0F2C196} = {E957A7BA-8FC5-457A-BFE7-56C1AE206AC3}
-		{26C207C0-49EB-43D6-856A-6B533EBD275A} = {E957A7BA-8FC5-457A-BFE7-56C1AE206AC3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {376A93A3-F747-4141-9191-63F9FC939BEF}

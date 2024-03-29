@@ -11,14 +11,12 @@ namespace MasterData.API.Controllers.v1
     [ApiVersion("1.0")]
     public class CountriesController(ICountryService countryService) : Controller
     {
-
-        [HttpGet]
         [Authorize]
+        [HttpGet]
         public async Task<ActionResult<List<CountryResponseModel>>> GetAll()
         {
             return await countryService.GetAll();
         }
-
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CountryResponseModel>> GetById(int id)
@@ -35,20 +33,17 @@ namespace MasterData.API.Controllers.v1
             return StatusCode(StatusCodes.Status201Created, countryInserted);
         }
 
-
         [HttpPatch("activate/{id}")]
         public async Task<ActionResult<CountryResponseModel>> Activate(int id)
         {
-            return await countryService.UpdateStatus(id, EnumStatus.Activate);            
+            return await countryService.UpdateStatus(id, EnumStatus.Activate);
         }
-
 
         [HttpPatch("Inactivate/{id}")]
         public async Task<ActionResult<CountryResponseModel>> InActivate(int id)
         {
             return await countryService.UpdateStatus(id, EnumStatus.InActivate);
         }
-
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
