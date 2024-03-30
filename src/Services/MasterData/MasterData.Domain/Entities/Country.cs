@@ -1,3 +1,5 @@
+using Utilities;
+
 namespace MasterData.Domain.Entities;
 
 public class Country : BaseEntity

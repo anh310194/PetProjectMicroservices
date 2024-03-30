@@ -1,17 +1,17 @@
-using MasterData.Domain.Entities;
-using MasterData.Domain.Interfaces;
-using MasterData.Infrastructure.Persistence;
+using Identity.Core.Interfaces;
+using Identity.Core.Models;
+using Identity.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
-namespace MasterData.Domain.Repositories;
+namespace Identity.Infrastructure.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
     private readonly DbSet<TEntity> _dbSet;
 
-    public Repository(MasterDataContext context)
+    public Repository(IdentityContext context)
     {
         _dbSet = context.Set<TEntity>();
     }

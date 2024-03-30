@@ -13,6 +13,7 @@ COPY ["TokenManageHandler/TokenManageHandler.csproj", "TokenManageHandler/"]
 COPY ["Services/MasterData/MasterData.Application/MasterData.Application.csproj", "Services/MasterData/MasterData.Application/"]
 COPY ["Services/MasterData/MasterData.Domain/MasterData.Domain.csproj", "Services/MasterData/MasterData.Domain/"]
 COPY ["Services/MasterData/MasterData.Infrastructure/MasterData.Infrastructure.csproj", "Services/MasterData/MasterData.Infrastructure/"]
+COPY ["Utilities/Utilities.csproj", "Utilities/"]
 RUN dotnet restore "./Services/MasterData/MasterData.API/./MasterData.API.csproj"
 COPY . .
 WORKDIR "/src/Services/MasterData/MasterData.API"

@@ -9,8 +9,8 @@ namespace TokenManageHandler
     public class JwtTokenHandler()
     {
 
-        public static string JWT_SECURITY_KEY = Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? string.Empty;
-        public static int JWT_TOKEN_VALIDITY_MINS = int.Parse(Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? "180");
+        public static string JWT_SECURITY_KEY = Environment.GetEnvironmentVariable("PET_PROJECT_JWT_SECURITY_KEY") ?? string.Empty;
+        public static int JWT_TOKEN_VALIDITY_MINS = int.Parse(Environment.GetEnvironmentVariable("PET_PROJECT_JWT_TOKEN_VALIDITY_MINS") ?? "180");
         public AuthenticationResponse GenerateJwtToken(UserAccount userAccountAuthenticated)
         {
             //var JWT_SECURITY_KEY = Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? "";

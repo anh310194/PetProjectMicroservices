@@ -1,6 +1,5 @@
 using MasterData.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 namespace MasterData.Infrastructure.Persistence;
 
@@ -26,7 +25,7 @@ public partial class MasterDataContext : DbContext
                 .IsRowVersion()
                 .IsConcurrencyToken();
 
-            entity.HasMany(e => e.States).WithOne(e => e.Country).HasForeignKey(e=> e.CountryId).IsRequired();
+            entity.HasMany(e => e.States).WithOne(e => e.Country).HasForeignKey(e => e.CountryId).IsRequired();
         });
 
         modelBuilder.Entity<State>(entity =>
