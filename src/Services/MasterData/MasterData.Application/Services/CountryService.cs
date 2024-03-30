@@ -1,9 +1,9 @@
 ﻿using MasterData.Application.Interfaces;
 using MasterData.Application.Models;
-using MasterData.Domain;
 using MasterData.Domain.Entities;
 using MasterData.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Utilities;
 
 namespace MasterData.Application.Services
 {
@@ -31,15 +31,15 @@ namespace MasterData.Application.Services
 
         public Task<List<CountryResponseModel>> GetAll()
         {
-           return unitOfWork.CountryRepository.Queryable().ToListAsync().ContinueWith((result) =>
-            {
-                return result.Result.Select((country) =>
-                {
-                    return new CountryResponseModel() { Code = country.Code, Name = country.Name, Id = country.Id, Status = country.Status, RowVersion = country.RowVersion };
-                }).ToList();
-            });
+            return unitOfWork.CountryRepository.Queryable().ToListAsync().ContinueWith((result) =>
+             {
+                 return result.Result.Select((country) =>
+                 {
+                     return new CountryResponseModel() { Code = country.Code, Name = country.Name, Id = country.Id, Status = country.Status, RowVersion = country.RowVersion };
+                 }).ToList();
+             });
 
-            
+
         }
 
         public Task<CountryResponseModel> GetById(int id)
@@ -52,7 +52,8 @@ namespace MasterData.Application.Services
                 return Task.FromResult(cachedEntity);
 #pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
             }
-            return unitOfWork.CountryRepository.FindAsync(id).AsTask().ContinueWith((result) =>{
+            return unitOfWork.CountryRepository.FindAsync(id).AsTask().ContinueWith((result) =>
+            {
                 var country = result.Result;
                 if (country == null)
                 {
@@ -81,7 +82,8 @@ namespace MasterData.Application.Services
             await unitOfWork.SaveChangesAsync();
             string key = GetKeyCache(id);
             cacheService.RemoveData(key);
-            return await unitOfWork.CountryRepository.FindAsync(id).AsTask().ContinueWith((result) => {
+            return await unitOfWork.CountryRepository.FindAsync(id).AsTask().ContinueWith((result) =>
+            {
                 var country = result.Result;
                 if (country == null)
                 {

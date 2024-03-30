@@ -1,4 +1,4 @@
-﻿using MasterData.Domain;
+﻿using Utilities;
 
 namespace MasterData.Application.Models
 {

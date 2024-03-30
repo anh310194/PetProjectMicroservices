@@ -1,6 +1,6 @@
 ﻿
 using MasterData.Application.Models;
-using MasterData.Domain;
+using Utilities;
 
 namespace MasterData.Application.Interfaces
 {

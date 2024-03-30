@@ -1,7 +1,7 @@
 ﻿using MasterData.Application.Interfaces;
 using MasterData.Application.Models;
-using MasterData.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Utilities;
 
 namespace MasterData.API.Controllers.v1
 {

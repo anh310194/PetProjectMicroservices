@@ -1,9 +1,9 @@
 ﻿using MasterData.Application.Interfaces;
 using MasterData.Application.Models;
-using MasterData.Domain;
 using MasterData.Domain.Entities;
 using MasterData.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Utilities;
 
 namespace MasterData.Application.Services
 {
@@ -31,15 +31,15 @@ namespace MasterData.Application.Services
 
         public Task<List<StateResponseModel>> GetAll()
         {
-           return unitOfWork.StateRepository.Queryable().ToListAsync().ContinueWith((result) =>
-            {
-                return result.Result.Select((State) =>
-                {
-                    return new StateResponseModel() { Code = State.Code, Name = State.Name, Id = State.Id, Status = State.Status, RowVersion = State.RowVersion };
-                }).ToList();
-            });
+            return unitOfWork.StateRepository.Queryable().ToListAsync().ContinueWith((result) =>
+             {
+                 return result.Result.Select((State) =>
+                 {
+                     return new StateResponseModel() { Code = State.Code, Name = State.Name, Id = State.Id, Status = State.Status, RowVersion = State.RowVersion };
+                 }).ToList();
+             });
 
-            
+
         }
 
         public Task<StateResponseModel> GetById(int id)
@@ -52,7 +52,8 @@ namespace MasterData.Application.Services
                 return Task.FromResult(cachedEntity);
 #pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
             }
-            return unitOfWork.StateRepository.FindAsync(id).AsTask().ContinueWith((result) =>{
+            return unitOfWork.StateRepository.FindAsync(id).AsTask().ContinueWith((result) =>
+            {
                 var State = result.Result;
                 if (State == null)
                 {
@@ -81,7 +82,8 @@ namespace MasterData.Application.Services
             await unitOfWork.SaveChangesAsync();
             string key = GetKeyCache(id);
             cacheService.RemoveData(key);
-            return await unitOfWork.StateRepository.FindAsync(id).AsTask().ContinueWith((result) => {
+            return await unitOfWork.StateRepository.FindAsync(id).AsTask().ContinueWith((result) =>
+            {
                 var State = result.Result;
                 if (State == null)
                 {
