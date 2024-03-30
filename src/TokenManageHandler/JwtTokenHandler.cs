@@ -9,12 +9,11 @@ namespace TokenManageHandler
     public class JwtTokenHandler()
     {
 
-        //public static string securityKey = Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? string.Empty;
-        public static string JWT_SECURITY_KEY = "rWRSlbDofIojJkwAN1tip36aK4FO0DLx";
+        public static string JWT_SECURITY_KEY = Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? string.Empty;
+        public static int JWT_TOKEN_VALIDITY_MINS = int.Parse(Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? "180");
         public AuthenticationResponse GenerateJwtToken(UserAccount userAccountAuthenticated)
         {
             //var JWT_SECURITY_KEY = Environment.GetEnvironmentVariable("PETPROJECT_JWT_SECURITY_KEY") ?? "";
-            var JWT_TOKEN_VALIDITY_MINS = 180;
 
             var tokenExpiryTimestamp = DateTime.Now.AddMinutes(JWT_TOKEN_VALIDITY_MINS);
             var tokenKey = Encoding.ASCII.GetBytes(JWT_SECURITY_KEY);

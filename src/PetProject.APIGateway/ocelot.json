@@ -10,12 +10,8 @@
           "Port": 6000
         }
       ],
-      "UpstreamPathTemplate": "/Authentication",
+      "UpstreamPathTemplate": "/api/v1/Authentication",
       "UpstreamHttpMethod": [ "POST" ]
-      //,"AuthenticationOptions": {
-      //  "AuthenticationProviderKey": "Bearer",
-      //  "AllowedScopes": []
-      //}
     },
     // Master Data API
     {
@@ -27,7 +23,7 @@
           "Port": 5000
         }
       ],
-      "UpstreamPathTemplate": "/Countries/{id}",
+      "UpstreamPathTemplate": "/api/v1/Countries/{id}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ]
     },
     {
@@ -39,8 +35,8 @@
           "Port": 5000
         }
       ],
-      "UpstreamPathTemplate": "/Countries",
-      "UpstreamHttpMethod": [ "GET"]
+      "UpstreamPathTemplate": "/api/v1/Countries",
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ],
   "GlobalConfiguration": {
