@@ -9,7 +9,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/MasterData/MasterData.API/MasterData.API.csproj", "Services/MasterData/MasterData.API/"]
-COPY ["TokenManageHandler/TokenManageHandler.csproj", "TokenManageHandler/"]
 COPY ["Services/MasterData/MasterData.Application/MasterData.Application.csproj", "Services/MasterData/MasterData.Application/"]
 COPY ["Services/MasterData/MasterData.Domain/MasterData.Domain.csproj", "Services/MasterData/MasterData.Domain/"]
 COPY ["Services/MasterData/MasterData.Infrastructure/MasterData.Infrastructure.csproj", "Services/MasterData/MasterData.Infrastructure/"]

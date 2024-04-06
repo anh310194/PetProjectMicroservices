@@ -25,7 +25,6 @@
 
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\TokenManageHandler\TokenManageHandler.csproj" />
 	  <ProjectReference Include="..\MasterData.Application\MasterData.Application.csproj" />
 	  <ProjectReference Include="..\MasterData.Domain\MasterData.Domain.csproj" />
 	  <ProjectReference Include="..\MasterData.Infrastructure\MasterData.Infrastructure.csproj" />

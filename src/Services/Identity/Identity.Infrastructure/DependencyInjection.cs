@@ -11,7 +11,6 @@ namespace Identity.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            Console.WriteLine(configuration.GetConnectionString("DefaultConnection"));
             services.AddDbContext<IdentityContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

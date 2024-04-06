@@ -13,6 +13,7 @@ namespace Identity.API.Controllers.v1
         [HttpPost]
         public IActionResult Login([FromBody] AuthenticationRequest request)
         {
+            Console.WriteLine("secretkey", Environment.GetEnvironmentVariable("PET_PROJECT_JWT_SECURITY_KEY"));
             var user = userService.Login(request.UserName, request.Password);
             var authen = jwtTokenHandler.GenerateJwtToken(user);
             return Json(authen);

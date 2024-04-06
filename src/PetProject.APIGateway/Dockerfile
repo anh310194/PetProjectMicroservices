@@ -10,6 +10,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["PetProject.APIGateway/PetProject.APIGateway.csproj", "PetProject.APIGateway/"]
+COPY ["TokenManageHandler/TokenManageHandler.csproj", "TokenManageHandler/"]
 RUN dotnet restore "./PetProject.APIGateway/./PetProject.APIGateway.csproj"
 COPY . .
 WORKDIR "/src/PetProject.APIGateway"
