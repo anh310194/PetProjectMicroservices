@@ -2,16 +2,15 @@
 using Identity.Infrastructure.Persistence;
 using Identity.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Identity.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static void AddInfrastructure(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<IdentityContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<IdentityContext>(opt => opt.UseSqlServer(connectionString));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 

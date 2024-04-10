@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+
+  identityapi:
+    ports:
+      - "80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  masterdataapi:
+    ports:
+      - "80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  petprojectgateway:
+    ports:
+      - "80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development

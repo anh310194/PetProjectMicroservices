@@ -7,11 +7,20 @@ using TokenManageHandler;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbUser = Environment.GetEnvironmentVariable("DB_USERNAME");
+var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+var secretKey = Environment.GetEnvironmentVariable("PET_PROJECT_JWT_SECURITY_KEY");
+Console.WriteLine("secretKey: " + secretKey);
+
+var connectionString = $"Server={dbHost},{dbPort};Database={dbName};User Id={dbUser};Password={dbPassword};TrustServerCertificate=True;";
 
 builder.Services.AddControllers();
 builder.Services.AddPetProjectIdentityService();
 builder.Services.AddCustomTokenManage();
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure(connectionString);
 builder.Services.AddSingleton<JwtTokenHandler>();
 builder.Services.AddApiVersioning(x =>
 {

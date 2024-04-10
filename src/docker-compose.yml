@@ -39,13 +39,15 @@ services:
       - ASPNETCORE_HTTP_PORTS=6000
       - PET_PROJECT_JWT_SECURITY_KEY=rWRSlbDofIojJkwAN1tip36aK4FO0DLx
       - PET_PROJECT_JWT_TOKEN_VALIDITY_MINS=180
+      - DB_HOST=petprojectdb
+      - DB_PORT=1433
+      - DB_NAME=IdentityDb
+      - DB_USERNAME=sa
+      - DB_PASSWORD=Sa@123456
     networks: 
     - PetProject
     depends_on:
       - petprojectdb
-    # volumes:
-    #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-    #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
   masterdataapi:
     image: masterdataapi
@@ -60,14 +62,14 @@ services:
       - ASPNETCORE_HTTP_PORTS=5000
       - PET_PROJECT_JWT_SECURITY_KEY=rWRSlbDofIojJkwAN1tip36aK4FO0DLx
       - PET_PROJECT_JWT_TOKEN_VALIDITY_MINS=180
+      - DB_HOST=productdb
+      - DB_NAME=dms_product
+      - DB_ROOT_PASSWORD=password@12345#
     depends_on:
       - petprojectdb
       - materdatacache
     networks: 
     - PetProject
-    # volumes:
-    #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-    #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
   petprojectgateway:
     image: petprojectgateway
@@ -76,12 +78,9 @@ services:
       context: .
       dockerfile: PetProject.APIGateway/Dockerfile
     ports:
-      - "9000:9000"    
+      - "9000:9000" 
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=9000
+      - ASPNETCORE_HTTP_PORTS=9000   
     networks: 
     - PetProject
-    # volumes:
-    #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-    #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
