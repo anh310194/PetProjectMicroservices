@@ -61,6 +61,12 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         return _dbSet.AddAsync(entity, cancellationToken);
     }
 
+    public ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, int userId)
+    {
+        SetBaseValueInsert(entity, userId);
+        return _dbSet.AddAsync(entity);
+    }
+
     public void InsertRange(ICollection<TEntity> entities, int userId)
     {
         var enumerable = entities.Select(entity =>

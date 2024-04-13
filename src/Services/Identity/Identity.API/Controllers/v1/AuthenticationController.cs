@@ -11,10 +11,10 @@ namespace Identity.API.Controllers.v1
     public class AuthenticationController(IUserService userService, JwtTokenHandler jwtTokenHandler) : Controller
     {
         [HttpPost]
-        public IActionResult Login([FromBody] AuthenticationRequest request)
+        public async Task<IActionResult> Login([FromBody] AuthenticationRequest request)
         {
             Console.WriteLine("secretkey", JwtTokenHandler.JWT_SECURITY_KEY);
-            var user = userService.Login(request.UserName, request.Password);
+            var user = await userService.Login(request.UserName, request.Password);
             var authen = jwtTokenHandler.GenerateJwtToken(user);
             return Json(authen);
         }

@@ -20,4 +20,6 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
     IQueryable<TEntity> Queryable(Expression<Func<TEntity, bool>> predicate);
     IQueryable<TEntity> Queryable(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy);
     IQueryable<TEntity> Queryable(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy, string includeProperties);
+    ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, int userId);
+
 }

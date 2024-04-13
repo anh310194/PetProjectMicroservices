@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\TokenManageHandler\TokenManageHandler.csproj" />
+    <ProjectReference Include="..\Identity.Core\Identity.Core.csproj" />
   </ItemGroup>
 
 </Project>

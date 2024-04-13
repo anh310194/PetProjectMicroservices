@@ -15,13 +15,18 @@ namespace Identity.Infrastructure
         }
 
 
-        public static void RunMigration(this IServiceProvider serviceProvider)
+        public static async Task RunMigrationAsync(this IServiceProvider serviceProvider)
         {
-
             using (var scope = serviceProvider.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<IdentityContext>();
-                db.Database.Migrate();
+                await db.Database.MigrateAsync();
+
+                var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+                if (unitOfWork != null)
+                {
+                    await SeedData.AddSeedDataAsync(unitOfWork);
+                }
             }
         }
     }

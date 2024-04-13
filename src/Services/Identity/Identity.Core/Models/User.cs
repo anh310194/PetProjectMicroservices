@@ -14,6 +14,8 @@ namespace Identity.Core.Models
         public int? CountryId { get; set; }
         public int RoleId { get; set; }
         public EnumStatus Status { get; set; }
+        public bool IsSystemAdmin { get; set; }
+        public string? AvatarUrl { get; set; }
 
         public Role Role { get; set; } = null!;
     }

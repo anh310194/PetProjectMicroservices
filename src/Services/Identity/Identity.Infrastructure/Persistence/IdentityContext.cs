@@ -23,6 +23,7 @@ public partial class IdentityContext : DbContext
             entity.Property(e => e.LastName).HasMaxLength(20);
             entity.Property(e => e.Address).HasMaxLength(220);
             entity.Property(e => e.Status).HasConversion<byte>();
+            entity.Property(e => e.AvatarUrl).HasMaxLength(100);
             entity.Property(e => e.RowVersion)
                 .IsRowVersion()
                 .IsConcurrencyToken();
