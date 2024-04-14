@@ -9,6 +9,14 @@ public class UnitOfWork(IdentityContext context) : IUnitOfWork
     private Dictionary<string, dynamic> repositories = new Dictionary<string, dynamic>();
     private bool disposed = false;
 
+    public IRepository<Tenant> TenantRepository
+    {
+        get
+        {
+            return GetRepository<Tenant>();
+        }
+    }
+
     public IRepository<User> UserRepository
     {
         get

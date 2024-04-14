@@ -12,13 +12,6 @@ namespace Identity.Infrastructure
         {
             if (await unitOfWork.UserRepository.Queryable().FirstOrDefaultAsync() == null)
             {
-                Role administratorRole = unitOfWork.RoleRepository.Insert(new Role()
-                {
-                    Code = "sysadmin",
-                    Description = "System Administrator",
-                    Status = EnumStatus.Activate
-                }, 1);
-
                 var saltPassword = Helper.GenerateSalt();
                 unitOfWork.UserRepository.Insert(
                     new User()
@@ -29,9 +22,7 @@ namespace Identity.Infrastructure
                         Password = Helper.HashPassword("sysadmin", saltPassword),
                         SaltPassword = saltPassword,
                         Status = EnumStatus.Activate,
-                        IsSystemAdmin = true,
-                        RoleId = administratorRole.Id,
-                        Role = administratorRole
+                        UserType = EnumUserType.SystemAdministrator,
                     },
                     1
                 );

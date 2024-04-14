@@ -12,11 +12,13 @@ namespace Identity.Core.Models
         public string? Address { get; set; }
         public int? StateId { get; set; }
         public int? CountryId { get; set; }
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
         public EnumStatus Status { get; set; }
-        public bool IsSystemAdmin { get; set; }
+        public EnumUserType UserType { get; set; }
         public string? AvatarUrl { get; set; }
+        public int? TenantId { get; set; }
 
-        public Role Role { get; set; } = null!;
+        public Role? Role { get; set; } = null!;
+        public Tenant? Tenant { get; set; } = null!;
     }
 }

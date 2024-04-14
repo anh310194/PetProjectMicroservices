@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20240330062221_InitialIdentityDb")]
-    partial class InitialIdentityDb
+    [Migration("20240414125703_initialCreateDb")]
+    partial class initialCreateDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,6 +153,42 @@ namespace Identity.Infrastructure.Migrations
                     b.ToTable("RoleFeatures", (string)null);
                 });
 
+            modelBuilder.Entity("Identity.Core.Models.Tenant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tenants", (string)null);
+                });
+
             modelBuilder.Entity("Identity.Core.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -164,6 +200,10 @@ namespace Identity.Infrastructure.Migrations
                     b.Property<string>("Address")
                         .HasMaxLength(220)
                         .HasColumnType("nvarchar(220)");
+
+                    b.Property<string>("AvatarUrl")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
@@ -187,7 +227,7 @@ namespace Identity.Infrastructure.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int?>("RoleId")
                         .HasColumnType("int");
 
                     b.Property<byte[]>("RowVersion")
@@ -205,6 +245,9 @@ namespace Identity.Infrastructure.Migrations
                     b.Property<byte>("Status")
                         .HasColumnType("tinyint");
 
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
@@ -216,9 +259,14 @@ namespace Identity.Infrastructure.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<byte>("UserType")
+                        .HasColumnType("tinyint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Users", (string)null);
                 });
@@ -246,11 +294,15 @@ namespace Identity.Infrastructure.Migrations
                 {
                     b.HasOne("Identity.Core.Models.Role", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoleId");
+
+                    b.HasOne("Identity.Core.Models.Tenant", "Tenant")
+                        .WithMany("Users")
+                        .HasForeignKey("TenantId");
 
                     b.Navigation("Role");
+
+                    b.Navigation("Tenant");
                 });
 
             modelBuilder.Entity("Identity.Core.Models.Feature", b =>
@@ -262,6 +314,11 @@ namespace Identity.Infrastructure.Migrations
                 {
                     b.Navigation("RoleFeatures");
 
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Identity.Core.Models.Tenant", b =>
+                {
                     b.Navigation("Users");
                 });
 #pragma warning restore 612, 618

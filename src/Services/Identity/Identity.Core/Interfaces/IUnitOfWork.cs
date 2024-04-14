@@ -11,4 +11,5 @@ public interface IUnitOfWork : IDisposable
     IRepository<Role> RoleRepository { get; }
     IRepository<Feature> FeatureRepository { get; }
     IRepository<RoleFeature> RoleFeatureRepository { get; }
+    IRepository<Tenant> TenantRepository { get; }
 }

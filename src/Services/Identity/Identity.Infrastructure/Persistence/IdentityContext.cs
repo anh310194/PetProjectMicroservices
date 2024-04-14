@@ -8,12 +8,21 @@ public partial class IdentityContext : DbContext
     public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
     {
     }
-    DbSet<User> Users { get; set; }
-    DbSet<Role> Roles { get; set; }
-    DbSet<Feature> Features { get; set; }
-    DbSet<RoleFeature> RoleFeatures { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Tenant>(entity =>
+        {
+            entity.ToTable("Tenants");
+            entity.HasKey(k => k.Id);
+            entity.Property(e => e.Name).HasMaxLength(200);
+            entity.Property(e => e.RowVersion)
+                .IsRowVersion()
+                .IsConcurrencyToken();
+
+            entity.HasMany(e => e.Users).WithOne(e => e.Tenant).HasForeignKey(e => e.TenantId).IsRequired(false);
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.ToTable("Users");
@@ -23,12 +32,14 @@ public partial class IdentityContext : DbContext
             entity.Property(e => e.LastName).HasMaxLength(20);
             entity.Property(e => e.Address).HasMaxLength(220);
             entity.Property(e => e.Status).HasConversion<byte>();
+            entity.Property(e => e.UserType).HasConversion<byte>();
             entity.Property(e => e.AvatarUrl).HasMaxLength(100);
             entity.Property(e => e.RowVersion)
                 .IsRowVersion()
                 .IsConcurrencyToken();
 
-            entity.HasOne(e => e.Role).WithMany(e => e.Users).HasForeignKey(e => e.RoleId).IsRequired();
+            entity.HasOne(e => e.Role).WithMany(e => e.Users).HasForeignKey(e => e.RoleId).IsRequired(false);
+            entity.HasOne(e => e.Tenant).WithMany(e => e.Users).HasForeignKey(e => e.TenantId).IsRequired(false);
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -42,7 +53,7 @@ public partial class IdentityContext : DbContext
                 .IsRowVersion()
                 .IsConcurrencyToken();
 
-            entity.HasMany(e => e.Users).WithOne(e => e.Role).HasForeignKey(e => e.RoleId).IsRequired();
+            entity.HasMany(e => e.Users).WithOne(e => e.Role).HasForeignKey(e => e.RoleId).IsRequired(false);
             entity.HasMany(e => e.RoleFeatures).WithOne(e => e.Role).HasForeignKey(e => e.RoleId).IsRequired();
         });
 
