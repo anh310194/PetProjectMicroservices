@@ -12,7 +12,7 @@ namespace Identity.Infrastructure
         {
             if (await unitOfWork.UserRepository.Queryable().FirstOrDefaultAsync() == null)
             {
-                Role administratorRole = unitOfWork.Insert(new Role()
+                Role administratorRole = unitOfWork.RoleRepository.Insert(new Role()
                 {
                     Code = "sysadmin",
                     Description = "System Administrator",
@@ -20,7 +20,7 @@ namespace Identity.Infrastructure
                 }, 1);
 
                 var saltPassword = Helper.GenerateSalt();
-                unitOfWork.Insert(
+                unitOfWork.UserRepository.Insert(
                     new User()
                     {
                         FirstName = "System",

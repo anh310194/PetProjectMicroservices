@@ -1,7 +1,6 @@
 using Identity.Core.Interfaces;
 using Identity.Core.Models;
 using Identity.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Identity.Infrastructure.Repositories;
 
@@ -80,15 +79,5 @@ public class UnitOfWork(IdentityContext context) : IUnitOfWork
     {
         Dispose(true);
         GC.SuppressFinalize(this);
-    }
-
-    public ValueTask<EntityEntry<T>> InsertAsync<T>(T model, int userId) where T : BaseEntity
-    {
-        return GetRepository<T>().InsertAsync(model, userId);
-    }
-
-    public T Insert<T>(T model, int userId) where T : BaseEntity
-    {
-        return GetRepository<T>().Insert(model, userId);
     }
 }
