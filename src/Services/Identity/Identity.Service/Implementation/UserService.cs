@@ -21,11 +21,7 @@ namespace Identity.Service.Implementation
             {
                 throw new Exception("The password incorrect.");
             }
-            var role = await _unitOfWork.RoleRepository.Queryable(p => user.RoleId == p.Id).FirstOrDefaultAsync();
-            if (role == null)
-            {
-                throw new Exception("The role within user is not exists.");
-            }
+
             return new UserAccount() { DisplayName = $"{user.FirstName} {user.LastName}", UserType = user.UserType.ToString(), UserName = user.UserName, Address = user.Address, Avatar = user.AvatarUrl };
         }
 

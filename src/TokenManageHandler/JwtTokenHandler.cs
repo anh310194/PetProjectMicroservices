@@ -16,10 +16,6 @@ namespace TokenManageHandler
                 return Environment.GetEnvironmentVariable("PET_PROJECT_JWT_SECURITY_KEY") ?? string.Empty;
             }
         }
-        //public static int JWT_TOKEN_VALIDITY_MINS = int.Parse(Environment.GetEnvironmentVariable("PET_PROJECT_JWT_TOKEN_VALIDITY_MINS") ?? "180");
-
-
-        //public static string JWT_SECURITY_KEY = "rWRSlbDofIojJkwAN1tip36aK4FO0DLx";
         public static int JWT_TOKEN_VALIDITY_MINS = 180;
 
         public AuthenticationResponse GenerateJwtToken(UserAccount userAccountAuthenticated)

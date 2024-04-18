@@ -2,7 +2,7 @@
   "Routes": [
     // Authentication API
     {
-      "DownstreamPathTemplate": "/api/v1/Authentication",
+      "DownstreamPathTemplate": "/api/v1/authentications",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -10,7 +10,7 @@
           "Port": 6000
         }
       ],
-      "UpstreamPathTemplate": "/api/v1/Authentication",
+      "UpstreamPathTemplate": "/api/v1/authentications",
       "UpstreamHttpMethod": [ "POST" ]
     },
     // Master Data API
